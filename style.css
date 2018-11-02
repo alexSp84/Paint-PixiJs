@@ -18,3 +18,8 @@
     box-shadow: 5px 5px 15px grey;
     margin: 0;
 }
+
+#toolbar .button:hover {
+    box-shadow: 5px 5px 15px black;
+    cursor: move;
+}
