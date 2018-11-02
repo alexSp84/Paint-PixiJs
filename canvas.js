@@ -4,9 +4,8 @@ document.getElementById("canvas").appendChild(app.view);
 var graphics = new PIXI.Graphics();
 
 graphics.interactive = true;
-graphics.hitArea = new PIXI.Rectangle(200, 0, 800, 600);
+graphics.hitArea = new PIXI.Rectangle(0, 0, 1200, 1000);
 
-square();
 
 function square() {
     graphics.click = function () {
@@ -31,6 +30,18 @@ function circle() {
         console.log("click");
         graphics.lineStyle(4, 0x000000);
         graphics.drawCircle(500, 200, 50);
+    };
+    app.stage.addChild(graphics);
+}
+
+function triangle() {
+    graphics.click = function () {
+        console.log("click");
+        graphics.lineStyle(4, 0x000000);
+        graphics.moveTo(700, 600);
+        graphics.lineTo(700, 800);
+        graphics.lineTo(900, 800);
+        graphics.lineTo(700, 600);
     };
     app.stage.addChild(graphics);
 }
