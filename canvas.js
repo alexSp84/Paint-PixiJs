@@ -1,49 +1,67 @@
 var app = new PIXI.Application(1200, 1000, {antialias: true, backgroundColor: 0xFFFFFF});
 document.getElementById("canvas").appendChild(app.view);
 
-var graphics = new PIXI.Graphics();
+var squareObj = new PIXI.Graphics();
+var rectangleObj = new PIXI.Graphics();
+var circleObj = new PIXI.Graphics();
+var triangleObj = new PIXI.Graphics();
 
-graphics.interactive = true;
-graphics.lineStyle(4, 0x000000);
+squareObj.interactive = true;
+squareObj.lineStyle(4, 0x000000);
+rectangleObj.interactive = true;
+rectangleObj.lineStyle(4, 0x000000);
+circleObj.interactive = true;
+circleObj.lineStyle(4, 0x000000);
+triangleObj.interactive = true;
+triangleObj.lineStyle(4, 0x000000);
 
-graphics
-    .on('mousedown', onDragStart)
-    .on('touchstart', onDragStart)
-    .on('mouseup', onDragEnd)
-    .on('mouseupoutside', onDragEnd)
-    .on('touchend', onDragEnd)
-    .on('touchendoutside', onDragEnd)
-    .on('mousemove', onDragMove)
-    .on('touchmove', onDragMove);
-
+move(squareObj);
+move(rectangleObj);
+move(circleObj);
+move(triangleObj);
 
 function square() {
-    graphics.drawRect(0, 0, 200, 200);
-    graphics.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
-    app.stage.addChild(graphics);
+    squareObj.drawRect(0, 0, 200, 200);
+    squareObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
+    app.stage.addChild(squareObj);
 }
 
 function rectangle() {
-    graphics.drawRect(200, 400, 300, 100);
-    graphics.hitArea = new PIXI.Rectangle(200, 400, 300, 100);
-    app.stage.addChild(graphics);
+    rectangleObj.drawRect(0, 0, 300, 100);
+    rectangleObj.hitArea = new PIXI.Rectangle(0, 0, 300, 100);
+    app.stage.addChild(rectangleObj);
 }
 
 function circle() {
-    graphics.hitArea = new PIXI.Circle(500, 200, 50);
-    graphics.drawCircle(500, 200, 50);
-    app.stage.addChild(graphics);
+    circleObj.hitArea = new PIXI.Circle(50, 50, 50);
+    circleObj.drawCircle(50, 50, 50);
+    app.stage.addChild(circleObj);
 }
 
 function triangle() {
-    graphics.hitArea = new PIXI.Rectangle(700, 600, 200, 200);
-    graphics.moveTo(700, 600);
-    graphics.lineTo(700, 800);
-    graphics.lineTo(900, 800);
-    graphics.lineTo(700, 600);
-    app.stage.addChild(graphics);
+    triangleObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
+    triangleObj.moveTo(0, 0);
+    triangleObj.lineTo(0, 200);
+    triangleObj.lineTo(200, 200);
+    triangleObj.lineTo(0, 0);
+    app.stage.addChild(triangleObj);
 }
 
+// setup events
+function move(object) {
+    object
+        .on('mousedown', onDragStart)
+        .on('touchstart', onDragStart)
+        .on('mouseup', onDragEnd)
+        .on('mouseupoutside', onDragEnd)
+        .on('touchend', onDragEnd)
+        .on('touchendoutside', onDragEnd)
+        .on('mousemove', onDragMove)
+        .on('touchmove', onDragMove);
+}
+
+
+// managed drag-and-drop events
 function onDragStart(event)
 {
     this.data = event.data;
