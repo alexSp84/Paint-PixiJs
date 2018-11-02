@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+    <title>Paint-PixiJs</title>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default shadow">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Paint-PixiJs</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-2" id="toolbar">
+            <div class="col-xs-6 text-center">
+                <i class="material-icons" draggable="true" style="font-size:60px;color:black;">crop_square</i>
+            </div>
+            <div class="col-xs-6 text-center">
+                <i class="material-icons" draggable="true" style="font-size:60px;color:black;">crop_5_4</i>
+            </div>
+            <div class="col-xs-6 text-center">
+                <i class="material-icons" draggable="true" style="font-size:60px;color:black;">panorama_fish_eye</i>
+            </div>
+            <div class="col-xs-6 text-center">
+                <i class="material-icons" draggable="true" style="font-size:60px;color:black;">crop_5_4</i>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            <div id="canvas"></div>
+        </div>
+    </div>
+</div>
+
+<script src="canvas.js"></script>
+</body>
+</html>
