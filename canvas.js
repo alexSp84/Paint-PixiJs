@@ -44,6 +44,21 @@ function triangle() {
     move(triangleObj);
 }
 
+function line() {
+    var lineObj = new PIXI.Graphics();
+    lineObj.interactive = true;
+    lineObj.lineStyle(4, 0x000000);
+    lineObj.hitArea = new PIXI.Rectangle(0, 0, 208, 30);
+    lineObj.moveTo(4, 4);
+    lineObj.lineTo(204, 4);
+    app.stage.addChild(lineObj);
+    move(lineObj);
+}
+
+function onClick() {
+
+}
+
 // setup events
 function move(object) {
     object
