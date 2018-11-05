@@ -1,5 +1,32 @@
-var app = new PIXI.Application(1200, 1000, {antialias: true, backgroundColor: 0xFFFFFF});
+var app = new PIXI.Application(window.screen.width, window.screen.height, {antialias: true, backgroundColor: 0xFFFFFF});
 document.getElementById("canvas").appendChild(app.view);
+
+var color = document.getElementById("palette");
+
+var trash = PIXI.Sprite.fromImage('image/trash.png');
+trash.anchor.set(0.5);
+trash.x = window.screen.width / 2;
+trash.y = 20;
+trash.interactive = true;
+trash.buttonMode = true;
+app.stage.addChild(trash);
+
+var rotate = PIXI.Sprite.fromImage('image/rotate.png');
+rotate.anchor.set(0.5);
+rotate.x = window.screen.width / 2 + 50;
+rotate.y = 20;
+rotate.interactive = true;
+rotate.buttonMode = true;
+app.stage.addChild(rotate);
+
+var color = document.getElementById("palette");
+var colorBtn = PIXI.Sprite.fromImage('image/palette.png');
+colorBtn.anchor.set(0.5);
+colorBtn.x = window.screen.width / 2 + 100;
+colorBtn.y = 20;
+colorBtn.interactive = true;
+colorBtn.buttonMode = true;
+app.stage.addChild(colorBtn);
 
 function square() {
     var squareObj = new PIXI.Graphics();
@@ -55,10 +82,6 @@ function line() {
     move(lineObj);
 }
 
-function onClick() {
-
-}
-
 // setup events
 function move(object) {
     object
@@ -70,8 +93,35 @@ function move(object) {
         .on('touchendoutside', onDragEnd)
         .on('mousemove', onDragMove)
         .on('touchmove', onDragMove);
+
+    object.click = function (e) {
+        console.log(this, e);
+        deleteObject(object);
+        rotateObject(object);
+        paintObject(object);
+    }
 }
 
+function deleteObject(object) {
+    trash.click = function (e) {
+        object.clear();
+    }
+}
+
+function rotateObject(object) {
+    rotate.click = function (e) {
+        object.rotation += 0.785399;
+    }
+}
+
+function paintObject(object) {
+    colorBtn.click = function (e) {
+        color.click();
+    };
+    var selected = color.value;
+    console.log(selected);
+    object.lineColor = selected;
+}
 
 // managed drag-and-drop events
 function onDragStart(event)

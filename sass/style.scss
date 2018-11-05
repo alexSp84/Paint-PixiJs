@@ -5,6 +5,8 @@
 #canvas {
   canvas {
     padding-top: 20px;
+    width: auto;
+    height: 100vh;
   }
 }
 
@@ -28,4 +30,8 @@
       cursor: move;
     }
   }
+}
+
+#palette{
+  display: none;
 }
