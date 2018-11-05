@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+#canvas {
+  canvas {
+    padding-top: 20px;
+  }
+}
+
+#toolbar {
+  padding-top: 20px;
+  background-color: grey;
+  height: 100vh;
+  box-shadow: 5px 5px 15px grey;
+
+}
+
+.shadow {
+  box-shadow: 5px 5px 15px grey;
+  margin: 0;
+}
+
+#toolbar {
+  .button {
+    &:hover {
+      box-shadow: 5px 5px 15px black;
+      cursor: move;
+    }
+  }
+}
