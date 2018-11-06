@@ -1,7 +1,9 @@
 var app = new PIXI.Application(window.screen.width, window.screen.height, {antialias: true, backgroundColor: 0xFFFFFF});
 document.getElementById("canvas").appendChild(app.view);
 
-var color = document.getElementById("palette");
+var texture = PIXI.Texture.fromImage('image/wallpaper.jpg');
+var wallpaper = new PIXI.Sprite(texture);
+app.stage.addChild(wallpaper);
 
 var trash = PIXI.Sprite.fromImage('image/trash.png');
 trash.anchor.set(0.5);
@@ -82,6 +84,26 @@ function line() {
     move(lineObj);
 }
 
+function star() {
+    var starObj = new PIXI.Graphics();
+    starObj.interactive = true;
+    starObj.lineStyle(4, 0x000000);
+    starObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
+    starObj.drawStar(100, 100, 5, 100);
+    app.stage.addChild(starObj);
+    move(starObj);
+}
+
+function addText(text) {
+    var basicText = new PIXI.Text(text);
+    basicText.x = 30;
+    basicText.y = 90;
+    basicText.interactive = true;
+    basicText.hitArea = new PIXI.Rectangle(0, 0, 200, 50);
+    app.stage.addChild(basicText);
+    move(basicText);
+}
+
 // setup events
 function move(object) {
     object
@@ -104,7 +126,8 @@ function move(object) {
 
 function deleteObject(object) {
     trash.click = function (e) {
-        object.clear();
+        // object.clear();
+        app.stage.removeChild(object);
     }
 }
 
