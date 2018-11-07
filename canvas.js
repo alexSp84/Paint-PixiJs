@@ -6,7 +6,6 @@ var wallpaper = new PIXI.Sprite(texture);
 app.stage.addChild(wallpaper);
 var initialPositionX = window.screen.width / 2 - 100;
 var initialPositionY = window.screen.height / 2 - 100;
-var tempRotate = false;
 
 var trash = PIXI.Sprite.fromImage('image/trash.png');
 trash.anchor.set(0.5);
@@ -33,8 +32,6 @@ var borderColor = hex2string(borderBtn.value);
 var fillerColor = hex2string(fillerBtn.value);
 
 function square() {
-    var isRotated = false;
-    tempRotate = false;
     var squareObj = new PIXI.Graphics();
     squareObj.interactive = true;
     squareObj.cursor = 'pointer';
@@ -46,12 +43,10 @@ function square() {
     squareObj.endFill();
     squareObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 200, 200);
     app.stage.addChild(squareObj);
-    move(squareObj, isRotated);
+    move(squareObj);
 }
 
 function rectangle() {
-    var isRotated = false;
-    tempRotate = false;
     var rectangleObj = new PIXI.Graphics();
     rectangleObj.interactive = true;
     rectangleObj.cursor = 'pointer';
@@ -63,12 +58,10 @@ function rectangle() {
     rectangleObj.endFill();
     rectangleObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 300, 100);
     app.stage.addChild(rectangleObj);
-    move(rectangleObj, isRotated);
+    move(rectangleObj);
 }
 
 function circle() {
-    var isRotated = false;
-    tempRotate = false;
     var circleObj = new PIXI.Graphics();
     circleObj.interactive = true;
     circleObj.cursor = 'pointer';
@@ -80,12 +73,10 @@ function circle() {
     circleObj.drawCircle(initialPositionX + 100, initialPositionY + 100, 100);
     circleObj.endFill();
     app.stage.addChild(circleObj);
-    move(circleObj, isRotated);
+    move(circleObj);
 }
 
 function triangle() {
-    var isRotated = false;
-    tempRotate = false;
     var triangleObj = new PIXI.Graphics();
     triangleObj.interactive = true;
     triangleObj.cursor = 'pointer';
@@ -100,12 +91,10 @@ function triangle() {
     triangleObj.lineTo(initialPositionX, initialPositionY);
     triangleObj.endFill();
     app.stage.addChild(triangleObj);
-    move(triangleObj, isRotated);
+    move(triangleObj);
 }
 
 function line() {
-    var isRotated = false;
-    tempRotate = false;
     var lineObj = new PIXI.Graphics();
     lineObj.interactive = true;
     lineObj.cursor = 'pointer';
@@ -115,12 +104,10 @@ function line() {
     lineObj.moveTo(initialPositionX, initialPositionY);
     lineObj.lineTo(initialPositionX + 200, initialPositionY);
     app.stage.addChild(lineObj);
-    move(lineObj, isRotated);
+    move(lineObj);
 }
 
 function star() {
-    var isRotated = false;
-    tempRotate = false;
     var starObj = new PIXI.Graphics();
     starObj.interactive = true;
     starObj.cursor = 'pointer';
@@ -132,12 +119,10 @@ function star() {
     starObj.drawStar(initialPositionX + 100, initialPositionY + 100, 5, 100);
     starObj.endFill();
     app.stage.addChild(starObj);
-    move(starObj, isRotated);
+    move(starObj);
 }
 
 function addText(text) {
-    var isRotated = true;
-    tempRotate = true;
     borderColor = hex2string(borderBtn.value);
     var style = new PIXI.TextStyle({
         fill: borderColor
@@ -149,11 +134,11 @@ function addText(text) {
     basicText.cursor = 'pointer';
     borderColor = hex2string(borderBtn.value);
     app.stage.addChild(basicText);
-    move(basicText, isRotated);
+    move(basicText);
 }
 
 // setup events
-function move(object, isRotated) {
+function move(object) {
     object
         .on('mousedown', onDragStart)
         .on('touchstart', onDragStart)
@@ -166,15 +151,27 @@ function move(object, isRotated) {
 
     object.click = function (e) {
         console.log(this, e);
-        selectedObject(object, isRotated);
+        selectedObject(object);
         deleteObject(object);
-        rotateObject(object, isRotated);
+        rotateObject(object);
+    };
+
+    object.rightclick = function (e) {
+        deselectObject(object);
     }
 }
 
-function selectedObject(isRotated) {
+function selectedObject(object) {
     trash.visible = true;
     rotate.visible = true;
+    object.alpha = 0.5;
+    tempRotate = object.rotation;
+}
+
+function deselectObject(object) {
+    trash.visible = false;
+    rotate.visible = false;
+    object.alpha = 1;
 }
 
 function deleteObject(object) {
@@ -185,14 +182,14 @@ function deleteObject(object) {
     }
 }
 
-function rotateObject(object, isRotated) {
+function rotateObject(object) {
     rotate.click = function (e) {
+        if(object.text === undefined){
         object.pivot.set(initialPositionX + object.width / 2, initialPositionY + object.height / 2);
         object.position.x = initialPositionX + object.width / 2;
         object.position.y = initialPositionY + object.height / 2;
+        }
         object.rotation += 0.785399;
-        isRotated = true;
-        tempRotate = isRotated;
     }
 }
 
@@ -202,6 +199,8 @@ function onDragStart(event) {
     this.alpha = 0.5;
     this.dragging = true;
     this.cursor = 'move';
+    trash.visible = true;
+    rotate.visible = true;
 }
 
 function onDragEnd() {
@@ -213,7 +212,7 @@ function onDragEnd() {
 function onDragMove() {
     if (this.dragging) {
         var newPosition = this.data.getLocalPosition(this.parent);
-        if (tempRotate) {
+        if (this.rotation > 0 || this.text !== undefined) {
             this.position.x = newPosition.x;
             this.position.y = newPosition.y;
         } else {
