@@ -10,7 +10,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/style.css">
+
     <title>Paint-PixiJs</title>
+    <link rel="icon" href="image/favicon.png">
 
 </head>
 
@@ -24,11 +26,18 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
         </ul>
+        <form class="navbar-form navbar-right color-bar">
+            <label for="palette">Border: </label>
+            <input type="color" id="palette" name="color" value="#000000"/>
+            <label for="palette2">Fill: </label>
+            <input type="color" id="palette2" name="color" value="#ffffff"/>
+        </form>
         <form class="navbar-form navbar-right" action="">
             <div class="form-group">
-                <input type="text" id="inputText" class="form-control" placeholder="Text">
+                <input type="text" id="inputText" class="form-control" placeholder="Text...">
             </div>
-            <input type="button" onclick="addText(document.getElementById('inputText').value)" class="btn btn-default" value="Add text">
+            <input type="button" onclick="addText(document.getElementById('inputText').value)" class="btn btn-default"
+                   value="Add text">
         </form>
     </div>
 </nav>
@@ -37,22 +46,28 @@
     <div class="row">
         <div class="col-xs-2" id="toolbar">
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="square()" style="font-size:60px;color:black;">crop_square</i>
+                <i class="material-icons button" onclick="square()"
+                   style="font-size:60px;color:black;">crop_square</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="rectangle()" style="font-size:60px;color:black;">crop_5_4</i>
+                <i class="material-icons button" onclick="rectangle()"
+                   style="font-size:60px;color:black;">crop_5_4</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="circle()" style="font-size:60px;color:black;">panorama_fish_eye</i>
+                <i class="material-icons button" onclick="circle()"
+                   style="font-size:60px;color:black;">panorama_fish_eye</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="triangle()" style="font-size:60px;color:black;">change_history</i>
+                <i class="material-icons button" onclick="triangle()"
+                   style="font-size:60px;color:black;">change_history</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="star()" style="font-size:60px;color:black;">star_border</i>
+                <i class="material-icons button" onclick="star()"
+                   style="font-size:60px;color:black;">star_border</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" draggable="true" ondragend="line()" style="font-size:60px;color:black;">remove</i>
+                <i class="material-icons button" onclick="line()"
+                   style="font-size:60px;color:black;">remove</i>
             </div>
         </div>
         <div class="col-xs-10">
@@ -60,7 +75,6 @@
         </div>
     </div>
 </div>
-<input type="color" id="palette" name="color" value="#e66465" />
 <script src="canvas.js"></script>
 </body>
 </html>

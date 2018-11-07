@@ -1,0 +1,26 @@
+{
+  "name": "paint-pixijs",
+  "version": "1.0.0",
+  "description": "\"# Paint-PixiJs\" \r \"# Paint-PixiJs\" \r \"# Paint-PixiJs\"",
+  "main": "canvas.js",
+  "dependencies": {
+    "node-sass": "^4.10.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexSp84/Paint-PixiJs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexSp84/Paint-PixiJs/issues"
+  },
+  "homepage": "https://github.com/alexSp84/Paint-PixiJs#readme"
+}

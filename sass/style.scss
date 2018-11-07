@@ -21,17 +21,19 @@
 .shadow {
   box-shadow: 5px 5px 15px grey;
   margin: 0;
+  .color-bar {
+    margin-top: 12px;
+    #palette {
+      margin-right: 5px;
+    }
+  }
 }
 
 #toolbar {
   .button {
     &:hover {
       box-shadow: 5px 5px 15px black;
-      cursor: move;
+      cursor: pointer;
     }
   }
-}
-
-#palette{
-  display: none;
 }

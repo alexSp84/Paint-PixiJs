@@ -4,10 +4,12 @@ document.getElementById("canvas").appendChild(app.view);
 var texture = PIXI.Texture.fromImage('image/wallpaper.jpg');
 var wallpaper = new PIXI.Sprite(texture);
 app.stage.addChild(wallpaper);
+var initialPositionX = window.screen.width / 2 - 100;
+var initialPositionY = window.screen.height / 2 - 100;
 
 var trash = PIXI.Sprite.fromImage('image/trash.png');
 trash.anchor.set(0.5);
-trash.x = window.screen.width / 2;
+trash.x = window.screen.width / 2 - 50;
 trash.y = 20;
 trash.interactive = true;
 trash.buttonMode = true;
@@ -15,27 +17,28 @@ app.stage.addChild(trash);
 
 var rotate = PIXI.Sprite.fromImage('image/rotate.png');
 rotate.anchor.set(0.5);
-rotate.x = window.screen.width / 2 + 50;
+rotate.x = window.screen.width / 2;
 rotate.y = 20;
 rotate.interactive = true;
 rotate.buttonMode = true;
 app.stage.addChild(rotate);
 
-var color = document.getElementById("palette");
-var colorBtn = PIXI.Sprite.fromImage('image/palette.png');
-colorBtn.anchor.set(0.5);
-colorBtn.x = window.screen.width / 2 + 100;
-colorBtn.y = 20;
-colorBtn.interactive = true;
-colorBtn.buttonMode = true;
-app.stage.addChild(colorBtn);
+var borderBtn = document.getElementById("palette");
+var fillerBtn = document.getElementById("palette2");
+
+var borderColor = hex2string(borderBtn.value);
+var fillerColor = hex2string(fillerBtn.value);
 
 function square() {
     var squareObj = new PIXI.Graphics();
     squareObj.interactive = true;
-    squareObj.lineStyle(4, 0x000000);
-    squareObj.drawRect(0, 0, 200, 200);
-    squareObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+    squareObj.lineStyle(4, borderColor);
+    squareObj.beginFill(fillerColor);
+    squareObj.drawRect(initialPositionX, initialPositionY, 200, 200);
+    squareObj.endFill();
+    squareObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 200, 200);
     app.stage.addChild(squareObj);
     move(squareObj);
 }
@@ -43,9 +46,13 @@ function square() {
 function rectangle() {
     var rectangleObj = new PIXI.Graphics();
     rectangleObj.interactive = true;
-    rectangleObj.lineStyle(4, 0x000000);
-    rectangleObj.drawRect(0, 0, 300, 100);
-    rectangleObj.hitArea = new PIXI.Rectangle(0, 0, 300, 100);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+    rectangleObj.lineStyle(4, borderColor);
+    rectangleObj.beginFill(fillerColor);
+    rectangleObj.drawRect(initialPositionX, initialPositionY, 300, 100);
+    rectangleObj.endFill();
+    rectangleObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 300, 100);
     app.stage.addChild(rectangleObj);
     move(rectangleObj);
 }
@@ -53,9 +60,13 @@ function rectangle() {
 function circle() {
     var circleObj = new PIXI.Graphics();
     circleObj.interactive = true;
-    circleObj.lineStyle(4, 0x000000);
-    circleObj.hitArea = new PIXI.Circle(50, 50, 50);
-    circleObj.drawCircle(50, 50, 50);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+    circleObj.lineStyle(4, borderColor);
+    circleObj.beginFill(fillerColor);
+    circleObj.hitArea = new PIXI.Circle(initialPositionX + 100, initialPositionY + 100, 100);
+    circleObj.drawCircle(initialPositionX + 100, initialPositionY + 100, 100);
+    circleObj.endFill();
     app.stage.addChild(circleObj);
     move(circleObj);
 }
@@ -63,12 +74,16 @@ function circle() {
 function triangle() {
     var triangleObj = new PIXI.Graphics();
     triangleObj.interactive = true;
-    triangleObj.lineStyle(4, 0x000000);
-    triangleObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
-    triangleObj.moveTo(0, 0);
-    triangleObj.lineTo(0, 200);
-    triangleObj.lineTo(200, 200);
-    triangleObj.lineTo(0, 0);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+    triangleObj.lineStyle(4, borderColor);
+    triangleObj.beginFill(fillerColor);
+    triangleObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 200, 200);
+    triangleObj.moveTo(initialPositionX, initialPositionY);
+    triangleObj.lineTo(initialPositionX, initialPositionY + 200);
+    triangleObj.lineTo(initialPositionX + 200, initialPositionY + 200);
+    triangleObj.lineTo(initialPositionX, initialPositionY);
+    triangleObj.endFill();
     app.stage.addChild(triangleObj);
     move(triangleObj);
 }
@@ -76,10 +91,11 @@ function triangle() {
 function line() {
     var lineObj = new PIXI.Graphics();
     lineObj.interactive = true;
-    lineObj.lineStyle(4, 0x000000);
-    lineObj.hitArea = new PIXI.Rectangle(0, 0, 208, 30);
-    lineObj.moveTo(4, 4);
-    lineObj.lineTo(204, 4);
+    borderColor = hex2string(borderBtn.value);
+    lineObj.lineStyle(4, borderColor);
+    lineObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, initialPositionX + 208, initialPositionY + 30);
+    lineObj.moveTo(initialPositionX, initialPositionY);
+    lineObj.lineTo(initialPositionX + 200, initialPositionY);
     app.stage.addChild(lineObj);
     move(lineObj);
 }
@@ -87,19 +103,28 @@ function line() {
 function star() {
     var starObj = new PIXI.Graphics();
     starObj.interactive = true;
-    starObj.lineStyle(4, 0x000000);
-    starObj.hitArea = new PIXI.Rectangle(0, 0, 200, 200);
-    starObj.drawStar(100, 100, 5, 100);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+    starObj.lineStyle(4, borderColor);
+    starObj.beginFill(fillerColor);
+    starObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, initialPositionX + 200, initialPositionY + 200);
+    starObj.drawStar(initialPositionX + 100, initialPositionY + 100, 5, 100);
+    starObj.endFill();
     app.stage.addChild(starObj);
     move(starObj);
 }
 
 function addText(text) {
-    var basicText = new PIXI.Text(text);
-    basicText.x = 30;
-    basicText.y = 90;
+    borderColor = hex2string(borderBtn.value);
+    var style = new PIXI.TextStyle({
+        fill : borderColor
+    });
+    var basicText = new PIXI.Text(text, style);
+    basicText.x = initialPositionX;
+    basicText.y = initialPositionY;
     basicText.interactive = true;
-    basicText.hitArea = new PIXI.Rectangle(0, 0, 200, 50);
+    borderColor = hex2string(borderBtn.value);
+    basicText.hitArea = new PIXI.Rectangle(0, 0, basicText.width , basicText.height);
     app.stage.addChild(basicText);
     move(basicText);
 }
@@ -118,10 +143,14 @@ function move(object) {
 
     object.click = function (e) {
         console.log(this, e);
+        selectedObject(object);
         deleteObject(object);
         rotateObject(object);
-        paintObject(object);
     }
+}
+
+function selectedObject(object) {
+
 }
 
 function deleteObject(object) {
@@ -137,38 +166,36 @@ function rotateObject(object) {
     }
 }
 
-function paintObject(object) {
-    colorBtn.click = function (e) {
-        color.click();
-    };
-    var selected = color.value;
-    console.log(selected);
-    object.lineColor = selected;
-}
-
 // managed drag-and-drop events
-function onDragStart(event)
-{
+function onDragStart(event) {
     this.data = event.data;
     this.alpha = 0.5;
     this.dragging = true;
     this.cursor = 'move';
 }
 
-function onDragEnd()
-{
+function onDragEnd() {
     this.alpha = 1;
     this.dragging = false;
     this.data = null;
 }
 
-function onDragMove()
-{
-    if (this.dragging)
-    {
+function onDragMove() {
+    if (this.dragging) {
         var newPosition = this.data.getLocalPosition(this.parent);
-        this.position.x = newPosition.x;
-        this.position.y = newPosition.y;
+        this.position.x = newPosition.x - initialPositionX;
+        this.position.y = newPosition.y - initialPositionY;
         console.log(newPosition);
     }
+}
+
+function hex2string(hex)
+{
+    hex = hex.toString(16);
+    var result ="0x";
+    for(var i = 1; i < hex.length; i++){
+        result += hex[i];
+    }
+
+    return result;
 }
