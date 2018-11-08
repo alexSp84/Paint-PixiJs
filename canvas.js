@@ -6,10 +6,12 @@ var wallpaper = new PIXI.Sprite(texture);
 app.stage.addChild(wallpaper);
 var initialPositionX = window.screen.width / 2 - 100;
 var initialPositionY = window.screen.height / 2 - 100;
+var oldObj = new PIXI.Graphics();
+console.log(oldObj);
 
 var trash = PIXI.Sprite.fromImage('image/trash.png');
 trash.anchor.set(0.5);
-trash.x = window.screen.width / 2 - 50;
+trash.x = window.screen.width / 2 - 100;
 trash.y = 20;
 trash.interactive = true;
 trash.buttonMode = true;
@@ -18,12 +20,21 @@ app.stage.addChild(trash);
 
 var rotate = PIXI.Sprite.fromImage('image/rotate.png');
 rotate.anchor.set(0.5);
-rotate.x = window.screen.width / 2;
+rotate.x = window.screen.width / 2 - 50;
 rotate.y = 20;
 rotate.interactive = true;
 rotate.buttonMode = true;
 rotate.visible = false;
 app.stage.addChild(rotate);
+
+var deselectBtn = PIXI.Sprite.fromImage('image/deselect.png');
+deselectBtn.anchor.set(0.5);
+deselectBtn.x = window.screen.width / 2;
+deselectBtn.y = 20;
+deselectBtn.interactive = true;
+deselectBtn.buttonMode = true;
+deselectBtn.visible = false;
+app.stage.addChild(deselectBtn);
 
 var borderBtn = document.getElementById("palette");
 var fillerBtn = document.getElementById("palette2");
@@ -43,7 +54,9 @@ function square() {
     squareObj.endFill();
     squareObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 200, 200);
     app.stage.addChild(squareObj);
-    move(squareObj);
+    menu(squareObj);
+    events(squareObj);
+    console.log(squareObj);
 }
 
 function rectangle() {
@@ -58,7 +71,8 @@ function rectangle() {
     rectangleObj.endFill();
     rectangleObj.hitArea = new PIXI.Rectangle(initialPositionX, initialPositionY, 300, 100);
     app.stage.addChild(rectangleObj);
-    move(rectangleObj);
+    menu(rectangleObj);
+    events(rectangleObj);
 }
 
 function circle() {
@@ -73,7 +87,8 @@ function circle() {
     circleObj.drawCircle(initialPositionX + 100, initialPositionY + 100, 100);
     circleObj.endFill();
     app.stage.addChild(circleObj);
-    move(circleObj);
+    menu(circleObj);
+    events(circleObj);
 }
 
 function triangle() {
@@ -91,7 +106,8 @@ function triangle() {
     triangleObj.lineTo(initialPositionX, initialPositionY);
     triangleObj.endFill();
     app.stage.addChild(triangleObj);
-    move(triangleObj);
+    menu(triangleObj);
+    events(triangleObj);
 }
 
 function line() {
@@ -104,7 +120,8 @@ function line() {
     lineObj.moveTo(initialPositionX, initialPositionY);
     lineObj.lineTo(initialPositionX + 200, initialPositionY);
     app.stage.addChild(lineObj);
-    move(lineObj);
+    menu(lineObj);
+    events(lineObj);
 }
 
 function star() {
@@ -119,7 +136,8 @@ function star() {
     starObj.drawStar(initialPositionX + 100, initialPositionY + 100, 5, 100);
     starObj.endFill();
     app.stage.addChild(starObj);
-    move(starObj);
+    menu(starObj);
+    events(starObj);
 }
 
 function addText(text) {
@@ -134,11 +152,19 @@ function addText(text) {
     basicText.cursor = 'pointer';
     borderColor = hex2string(borderBtn.value);
     app.stage.addChild(basicText);
-    move(basicText);
+    menu(basicText);
+    events(basicText);
+}
+
+function menu(object) {
+    selectObject(object);
+    deselectObjectWithBtn(object);
+    rotateObject(object);
+    deleteObject(object);
 }
 
 // setup events
-function move(object) {
+function events(object) {
     object
         .on('mousedown', onDragStart)
         .on('touchstart', onDragStart)
@@ -151,43 +177,51 @@ function move(object) {
 
     object.click = function (e) {
         console.log(this, e);
-        selectedObject(object);
         deleteObject(object);
         rotateObject(object);
+        selectObject(object);
     };
+}
 
-    object.rightclick = function (e) {
-        deselectObject(object);
+function selectObject(object) {
+    trash.visible = true;
+    rotate.visible = true;
+    deselectBtn.visible = true;
+    object.alpha = 0.5;
+    if (oldObj !== object) {
+        deselectObject(oldObj);
+        oldObj = object;
     }
 }
 
-function selectedObject(object) {
-    trash.visible = true;
-    rotate.visible = true;
-    object.alpha = 0.5;
-    tempRotate = object.rotation;
+function deselectObject(object) {
+    object.alpha = 1;
 }
 
-function deselectObject(object) {
+function deselectObjectWithBtn(object) {
+    deselectBtn.click = function(e){
     trash.visible = false;
     rotate.visible = false;
+    deselectBtn.visible = false;
     object.alpha = 1;
+    }
 }
 
 function deleteObject(object) {
     trash.click = function (e) {
         trash.visible = false;
         rotate.visible = false;
+        deselectBtn.visible = false;
         app.stage.removeChild(object);
     }
 }
 
 function rotateObject(object) {
     rotate.click = function (e) {
-        if(object.text === undefined){
-        object.pivot.set(initialPositionX + object.width / 2, initialPositionY + object.height / 2);
-        object.position.x = initialPositionX + object.width / 2;
-        object.position.y = initialPositionY + object.height / 2;
+        if (object.text === undefined) {
+            object.pivot.set(initialPositionX + object.width / 2, initialPositionY + object.height / 2);
+            object.position.x = initialPositionX + object.width / 2;
+            object.position.y = initialPositionY + object.height / 2;
         }
         object.rotation += 0.785399;
     }
@@ -196,15 +230,12 @@ function rotateObject(object) {
 // managed drag-and-drop events
 function onDragStart(event) {
     this.data = event.data;
-    this.alpha = 0.5;
     this.dragging = true;
     this.cursor = 'move';
-    trash.visible = true;
-    rotate.visible = true;
+    menu(this);
 }
 
 function onDragEnd() {
-    this.alpha = 1;
     this.dragging = false;
     this.data = null;
 }
