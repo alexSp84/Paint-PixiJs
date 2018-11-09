@@ -6,22 +6,6 @@ body {
   overflow: hidden;
 }
 
-#canvas {
-  canvas {
-    padding-top: 20px;
-    width: auto;
-    height: 100vh;
-  }
-}
-
-#toolbar {
-  padding-top: 20px;
-  background-color: grey;
-  height: 100vh;
-  box-shadow: 5px 5px 15px grey;
-
-}
-
 .shadow {
   box-shadow: 5px 5px 15px grey;
   margin: 0;
@@ -30,19 +14,70 @@ body {
   }
 }
 
-#toolbar {
-  .button {
-    &:hover {
-      box-shadow: 5px 5px 15px black;
-      cursor: pointer;
-    }
-    &:active {
-      opacity: 0.2;
+.aside-left {
+  padding: 0;
+  #toolbar-left {
+    padding: 12px 0 0 0;
+    background-color: grey;
+    height: 100vh;
+    .button-left {
+      height: 60px;
+      a {
+        padding: 0;
+        background-color: grey;
+        &:active {
+          background-color: darkgrey;
+        }
+      }
+      &:hover {
+        border: 4px inset darkgrey;
+        border-right: 4px solid transparent;
+        cursor: pointer;
+      }
+      &:active {
+        border: 6px inset darkgrey;
+        border-right: 6px solid transparent;
+      }
     }
   }
-  #myModal {
-    #palette2 {
-      margin-left: 26px;
+
+  #toolbar {
+    padding-top: 20px;
+    background-color: darkgrey;
+    height: 100vh;
+    box-shadow: 5px 5px 15px grey;
+
+    .button {
+      &:hover {
+        box-shadow: 5px 5px 15px black;
+        cursor: pointer;
+      }
+      &:active {
+        opacity: 0.2;
+      }
     }
+    #myModal {
+      #palette2 {
+        margin-left: 26px;
+      }
+    }
+  }
+  #toolbar2 {
+    padding-top: 20px;
+    background-color: darkgrey;
+    height: 100vh;
+    box-shadow: 5px 5px 15px grey;
+    overflow: auto;
+    img {
+      width: 50px;
+    }
+  }
+}
+
+#canvas {
+  canvas {
+    padding-top: 15px;
+    width: auto;
+    height: 100vh;
   }
 }

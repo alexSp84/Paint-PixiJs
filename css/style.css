@@ -4,29 +4,54 @@
 body {
   overflow: hidden; }
 
-#canvas canvas {
-  padding-top: 20px;
-  width: auto;
-  height: 100vh; }
-
-#toolbar {
-  padding-top: 20px;
-  background-color: grey;
-  height: 100vh;
-  box-shadow: 5px 5px 15px grey; }
-
 .shadow {
   box-shadow: 5px 5px 15px grey;
   margin: 0; }
   .shadow .color-bar {
     margin-top: 12px; }
 
-#toolbar .button:hover {
-  box-shadow: 5px 5px 15px black;
-  cursor: pointer; }
+.aside-left {
+  padding: 0; }
+  .aside-left #toolbar-left {
+    padding: 12px 0 0 0;
+    background-color: grey;
+    height: 100vh; }
+    .aside-left #toolbar-left .button-left {
+      height: 60px; }
+      .aside-left #toolbar-left .button-left a {
+        padding: 0;
+        background-color: grey; }
+        .aside-left #toolbar-left .button-left a:active {
+          background-color: darkgrey; }
+      .aside-left #toolbar-left .button-left:hover {
+        border: 4px inset darkgrey;
+        border-right: 4px solid transparent;
+        cursor: pointer; }
+      .aside-left #toolbar-left .button-left:active {
+        border: 6px inset darkgrey;
+        border-right: 6px solid transparent; }
+  .aside-left #toolbar {
+    padding-top: 20px;
+    background-color: darkgrey;
+    height: 100vh;
+    box-shadow: 5px 5px 15px grey; }
+    .aside-left #toolbar .button:hover {
+      box-shadow: 5px 5px 15px black;
+      cursor: pointer; }
+    .aside-left #toolbar .button:active {
+      opacity: 0.2; }
+    .aside-left #toolbar #myModal #palette2 {
+      margin-left: 26px; }
+  .aside-left #toolbar2 {
+    padding-top: 20px;
+    background-color: darkgrey;
+    height: 100vh;
+    box-shadow: 5px 5px 15px grey;
+    overflow: auto; }
+    .aside-left #toolbar2 img {
+      width: 50px; }
 
-#toolbar .button:active {
-  opacity: 0.2; }
-
-#toolbar #myModal #palette2 {
-  margin-left: 26px; }
+#canvas canvas {
+  padding-top: 15px;
+  width: auto;
+  height: 100vh; }

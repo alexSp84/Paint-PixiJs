@@ -240,6 +240,21 @@ function addText(text) {
     events(basicText);
 }
 
+function addImage(){
+    var image = document.getElementById("immagine").value;
+    console.log(image);
+    var bunny = PIXI.Sprite.fromImage(image);
+
+// center the sprite's anchor point
+    bunny.anchor.set(0.5);
+
+// move the sprite to the center of the screen
+    bunny.x = app.screen.width / 2;
+    bunny.y = app.screen.height / 2;
+
+    app.stage.addChild(bunny);
+}
+
 function menu(object) {
     selectObject(object);
     deselectObjectWithBtn(object);
@@ -384,3 +399,16 @@ function hex2string(hex) {
 
     return result;
 }
+
+
+document.getElementById("filepicker").addEventListener("change", function(event) {
+    let output = document.getElementById("listing");
+    let files = event.target.files;
+
+    for (let i=0; i<files.length; i++) {
+        let item = document.createElement("img");
+        item.src = files[i].webkitRelativePath;
+        // item.innerHTML = files[i].webkitRelativePath;
+        output.appendChild(item);
+    }
+}, false);
