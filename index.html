@@ -26,17 +26,11 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
         </ul>
-        <form class="navbar-form navbar-right color-bar">
-            <label for="palette">Border: </label>
-            <input type="color" id="palette" name="color" value="#000000"/>
-            <label for="palette2">Fill: </label>
-            <input type="color" id="palette2" name="color" value="#ffffff"/>
-        </form>
-        <form class="navbar-form navbar-right" action="">
+        <form class="navbar-form navbar-right">
             <div class="form-group">
                 <input type="text" id="inputText" class="form-control" placeholder="Text...">
             </div>
-            <input type="button" onclick="addText(document.getElementById('inputText').value)" class="btn btn-default"
+            <input type="button" id="textButton" class="btn btn-default"
                    value="Add text">
         </form>
     </div>
@@ -46,29 +40,56 @@
     <div class="row">
         <div class="col-xs-2" id="toolbar">
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="square()"
+                <i class="material-icons button" id="squareButton"
                    style="font-size:60px;color:black;">crop_square</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="rectangle()"
+                <i class="material-icons button" id="rectangleButton"
                    style="font-size:60px;color:black;">crop_5_4</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="circle()"
+                <i class="material-icons button" id="circleButton"
                    style="font-size:60px;color:black;">panorama_fish_eye</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="triangle()"
+                <i class="material-icons button" id="triangleButton"
                    style="font-size:60px;color:black;">change_history</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="star()"
+                <i class="material-icons button" id="starButton"
                    style="font-size:60px;color:black;">star_border</i>
             </div>
             <div class="col-xs-6 text-center">
-                <i class="material-icons button" onclick="line()"
+                <i class="material-icons button" id="lineButton"
                    style="font-size:60px;color:black;">remove</i>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Select color</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="navbar-form navbar">
+                                <label for="palette">Border: </label>
+                                <input type="color" id="palette" name="color" value="#000000"/>
+                                <label for="palette2">Fill: </label>
+                                <input type="color" id="palette2" name="color" value="#ffffff"/>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="okbtn" data-dismiss="modal">Ok</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         <div class="col-xs-10">
             <div id="canvas"></div>

@@ -17,9 +17,10 @@
   margin: 0; }
   .shadow .color-bar {
     margin-top: 12px; }
-    .shadow .color-bar #palette {
-      margin-right: 5px; }
 
 #toolbar .button:hover {
   box-shadow: 5px 5px 15px black;
   cursor: pointer; }
+
+#toolbar .button:active {
+  opacity: 0.2; }

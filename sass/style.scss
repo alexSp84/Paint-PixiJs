@@ -23,9 +23,6 @@
   margin: 0;
   .color-bar {
     margin-top: 12px;
-    #palette {
-      margin-right: 5px;
-    }
   }
 }
 
@@ -34,6 +31,9 @@
     &:hover {
       box-shadow: 5px 5px 15px black;
       cursor: pointer;
+    }
+    &:active {
+      opacity: 0.2;
     }
   }
 }

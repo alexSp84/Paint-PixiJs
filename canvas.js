@@ -42,6 +42,81 @@ var fillerBtn = document.getElementById("palette2");
 var borderColor = hex2string(borderBtn.value);
 var fillerColor = hex2string(fillerBtn.value);
 
+var squareModalBtn = document.getElementById("squareButton");
+var rectangleModalBtn = document.getElementById("rectangleButton");
+var circleModalBtn = document.getElementById("circleButton");
+var triangleModalBtn = document.getElementById("triangleButton");
+var starModalBtn = document.getElementById("starButton");
+var lineModalBtn = document.getElementById("lineButton");
+var textModalBtn = document.getElementById("textButton");
+var okButton = document.getElementById("okbtn");
+
+squareModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 1;
+};
+
+rectangleModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 2;
+};
+
+circleModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 3;
+};
+
+triangleModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 4;
+};
+
+starModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 5;
+};
+
+lineModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 6;
+};
+
+textModalBtn.onclick = function () {
+    $("#myModal").modal();
+    okButton.value = 7;
+};
+
+okButton.onclick = function () {
+    console.log(okButton.value);
+    borderColor = hex2string(borderBtn.value);
+    fillerColor = hex2string(fillerBtn.value);
+
+    switch (okButton.value) {
+        case '1':
+            square();
+            break;
+        case '2':
+            rectangle();
+            break;
+        case '3':
+            circle();
+            break;
+        case '4':
+            triangle();
+            break;
+        case '5':
+            star();
+            break;
+        case '6':
+            line();
+            break;
+        case '7':
+            console.log("text");
+            addText(document.getElementById('inputText').value);
+            break;
+    }
+};
+
 function square() {
     var squareObj = new PIXI.Graphics();
     squareObj.interactive = true;
@@ -163,7 +238,8 @@ function menu(object) {
     deleteObject(object);
 }
 
-// setup events
+// setup events on shape
+
 function events(object) {
     object
         .on('mousedown', onDragStart)
@@ -183,6 +259,8 @@ function events(object) {
     };
 }
 
+// actions on shape or text
+
 function selectObject(object) {
     trash.visible = true;
     rotate.visible = true;
@@ -199,11 +277,11 @@ function deselectObject(object) {
 }
 
 function deselectObjectWithBtn(object) {
-    deselectBtn.click = function(e){
-    trash.visible = false;
-    rotate.visible = false;
-    deselectBtn.visible = false;
-    object.alpha = 1;
+    deselectBtn.click = function (e) {
+        trash.visible = false;
+        rotate.visible = false;
+        deselectBtn.visible = false;
+        object.alpha = 1;
     }
 }
 
@@ -228,6 +306,7 @@ function rotateObject(object) {
 }
 
 // managed drag-and-drop events
+
 function onDragStart(event) {
     this.data = event.data;
     this.dragging = true;
@@ -254,6 +333,8 @@ function onDragMove() {
         console.log(newPosition);
     }
 }
+
+// convert hex from #000000 to 0x000000 (string)
 
 function hex2string(hex) {
     hex = hex.toString(16);
