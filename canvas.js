@@ -27,9 +27,18 @@ rotate.buttonMode = true;
 rotate.visible = false;
 app.stage.addChild(rotate);
 
+var resizeBtn = PIXI.Sprite.fromImage('image/resize.png');
+resizeBtn.anchor.set(0.5);
+resizeBtn.x = window.screen.width / 2;
+resizeBtn.y = 20;
+resizeBtn.interactive = true;
+resizeBtn.buttonMode = true;
+resizeBtn.visible = false;
+app.stage.addChild(resizeBtn);
+
 var deselectBtn = PIXI.Sprite.fromImage('image/deselect.png');
 deselectBtn.anchor.set(0.5);
-deselectBtn.x = window.screen.width / 2;
+deselectBtn.x = window.screen.width / 2 + 50;
 deselectBtn.y = 20;
 deselectBtn.interactive = true;
 deselectBtn.buttonMode = true;
@@ -236,6 +245,7 @@ function menu(object) {
     deselectObjectWithBtn(object);
     rotateObject(object);
     deleteObject(object);
+    resizeObject(object);
 }
 
 // setup events on shape
@@ -256,6 +266,7 @@ function events(object) {
         deleteObject(object);
         rotateObject(object);
         selectObject(object);
+        resizeObject(object);
     };
 }
 
@@ -264,6 +275,7 @@ function events(object) {
 function selectObject(object) {
     trash.visible = true;
     rotate.visible = true;
+    resizeBtn.visible = true;
     deselectBtn.visible = true;
     object.alpha = 0.5;
     if (oldObj !== object) {
@@ -280,6 +292,7 @@ function deselectObjectWithBtn(object) {
     deselectBtn.click = function (e) {
         trash.visible = false;
         rotate.visible = false;
+        resizeBtn.visible = false;
         deselectBtn.visible = false;
         object.alpha = 1;
     }
@@ -289,6 +302,7 @@ function deleteObject(object) {
     trash.click = function (e) {
         trash.visible = false;
         rotate.visible = false;
+        resizeBtn.visible = false;
         deselectBtn.visible = false;
         app.stage.removeChild(object);
     }
@@ -303,6 +317,31 @@ function rotateObject(object) {
         }
         object.rotation += 0.785399;
     }
+}
+
+function resizeObject(object) {
+    var resizeOkButton = document.getElementById("resizeOkBtn");
+    var resizeInput = document.getElementById("resizeinput");
+
+    resizeBtn.click = function (e) {
+        $("#resizeModal").modal();
+    };
+
+    resizeOkButton.onclick = function (e) {
+        var resizeValue = resizeInput.value;
+        resizeInput.value = 1;
+        if (object.text === undefined) {
+            object.scale.x = resizeValue;
+            object.scale.y = resizeValue;
+            object.pivot.set(initialPositionX + object.width / 2, initialPositionY + object.height / 2);
+            object.position.x = initialPositionX + object.width / 2;
+            object.position.y = initialPositionY + object.height / 2;
+        } else {
+            object.scale.x = resizeValue;
+            object.scale.y = resizeValue;
+        }
+    };
+
 }
 
 // managed drag-and-drop events
@@ -322,7 +361,7 @@ function onDragEnd() {
 function onDragMove() {
     if (this.dragging) {
         var newPosition = this.data.getLocalPosition(this.parent);
-        if (this.rotation > 0 || this.text !== undefined) {
+        if (this.rotation > 0 || this.text !== undefined || this.scale.x !== 1) {
             this.position.x = newPosition.x;
             this.position.y = newPosition.y;
         } else {

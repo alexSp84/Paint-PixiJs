@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow: hidden;
+}
+
 #canvas {
   canvas {
     padding-top: 20px;
@@ -34,6 +38,11 @@
     }
     &:active {
       opacity: 0.2;
+    }
+  }
+  #myModal {
+    #palette2 {
+      margin-left: 26px;
     }
   }
 }

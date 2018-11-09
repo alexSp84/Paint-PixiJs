@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box; }
 
+body {
+  overflow: hidden; }
+
 #canvas canvas {
   padding-top: 20px;
   width: auto;
@@ -24,3 +27,6 @@
 
 #toolbar .button:active {
   opacity: 0.2; }
+
+#toolbar #myModal #palette2 {
+  margin-left: 26px; }
