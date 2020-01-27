@@ -68,10 +68,18 @@ body {
     height: 100vh;
     box-shadow: 5px 5px 15px grey;
     overflow: auto;
-    img {
-      width: 50px;
+    #filepicker {
+      display: none;
+    }
+    #listing {
+      img {
+        width: 100%;
+        height: auto;
+        padding: 0;
+      }
     }
   }
+
 }
 
 #canvas {
@@ -80,4 +88,25 @@ body {
     width: auto;
     height: 100vh;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: dimgrey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: dimgrey;
 }

@@ -408,6 +408,9 @@ document.getElementById("filepicker").addEventListener("change", function(event)
     for (let i=0; i<files.length; i++) {
         let item = document.createElement("img");
         item.src = files[i].webkitRelativePath;
+        item.onclick = function (e) {
+           console.log("click");
+        };
         // item.innerHTML = files[i].webkitRelativePath;
         output.appendChild(item);
     }
