@@ -1,7 +1,7 @@
 {
   "name": "paint-pixijs",
-  "version": "1.0.0",
-  "description": "\"# Paint-PixiJs\" \r \"# Paint-PixiJs\" \r \"# Paint-PixiJs\"",
+  "version": "1.0.1",
+  "description": "Paint-PixiJs",
   "main": "canvas.js",
   "dependencies": {
     "node-sass": "^4.14.1"
@@ -12,16 +12,18 @@
     "lodash": "^4.17.19",
     "yargs-parser": "^13.1.2",
     "lodash.template": "^4.5.0",
-    "minimatch": "^3.0.2"
+    "minimatch": "^3.0.2",
+    "lite-server": "^2.5.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lite": "lite-server --port 10001",
+    "start": "npm run lite"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexSp84/Paint-PixiJs.git"
   },
-  "author": "",
+  "author": "alexSp84",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alexSp84/Paint-PixiJs/issues"
