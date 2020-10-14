@@ -4,11 +4,13 @@
   "description": "\"# Paint-PixiJs\" \r \"# Paint-PixiJs\" \r \"# Paint-PixiJs\"",
   "main": "canvas.js",
   "dependencies": {
-    "node-sass": "^4.13.1"
+    "node-sass": "^4.14.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-sass": "^4.0.2"
+    "gulp-sass": "^4.1.0",
+    "lodash": "^4.17.19",
+    "yargs-parser": "^13.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
