@@ -13,7 +13,7 @@
     "yargs-parser": "^13.1.2",
     "lodash.template": "^4.5.0",
     "minimatch": "^3.0.2",
-    "lite-server": "^2.5.4"
+    "lite-server": "^2.6.1"
   },
   "scripts": {
     "lite": "lite-server --port 10001",
